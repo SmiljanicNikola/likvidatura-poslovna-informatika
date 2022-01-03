@@ -2,6 +2,8 @@ package pi.likvidatura.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import pi.likvidatura.domain.StavkaIzvoda;
 import pi.likvidatura.service.dto.StavkaIzvodaDTO;
 
 /**
@@ -21,7 +23,7 @@ public interface StavkaIzvodaService {
      *
      * @return the list of entities.
      */
-    List<StavkaIzvodaDTO> findAll();
+    List<StavkaIzvoda> findAll();
 
     /**
      * Get the "id" stavkaIzvoda.

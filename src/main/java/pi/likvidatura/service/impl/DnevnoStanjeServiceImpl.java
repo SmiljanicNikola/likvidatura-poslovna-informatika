@@ -42,9 +42,10 @@ public class DnevnoStanjeServiceImpl implements DnevnoStanjeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DnevnoStanjeDTO> findAll() {
+    public List<DnevnoStanje> findAll() {
         log.debug("Request to get all");
-        return dnevnoStanjeRepository.findAll().stream().map(dnevnoStanjeMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return dnevnoStanjeRepository.findAll();
+        		/*.stream().map(dnevnoStanjeMapper::toDto).collect(Collectors.toCollection(LinkedList::new));*/
     }
 
     @Override

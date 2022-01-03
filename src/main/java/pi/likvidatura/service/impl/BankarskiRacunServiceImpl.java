@@ -40,12 +40,12 @@ public class BankarskiRacunServiceImpl implements BankarskiRacunService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<BankarskiRacunDTO> findAll() {
+    public List<BankarskiRacun> findAll() {
         return bankarskiRacunRepository
-            .findAll()
-            .stream()
+            .findAll();
+            /*.stream()
             .map(bankarskiRacunMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+            .collect(Collectors.toCollection(LinkedList::new));*/
     }
 
     @Override

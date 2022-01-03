@@ -2,6 +2,8 @@ package pi.likvidatura.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import pi.likvidatura.domain.DnevnoStanje;
 import pi.likvidatura.service.dto.DnevnoStanjeDTO;
 
 /**
@@ -21,7 +23,7 @@ public interface DnevnoStanjeService {
      *
      * @return the list of entities.
      */
-    List<DnevnoStanjeDTO> findAll();
+    List<DnevnoStanje> findAll();
 
     /**
      * Get the "id" dnevnoStanje.

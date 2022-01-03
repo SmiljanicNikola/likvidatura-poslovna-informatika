@@ -42,9 +42,12 @@ public class StavkaIzvodaServiceImpl implements StavkaIzvodaService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<StavkaIzvodaDTO> findAll() {
+    public List<StavkaIzvoda> findAll() {
         log.debug("Request to get all");
-        return stavkaIzvodaRepository.findAll().stream().map(stavkaIzvodaMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return stavkaIzvodaRepository.findAll();
+        		/*.stream()
+        		.map(stavkaIzvodaMapper::toDto)
+        		.collect(Collectors.toCollection(LinkedList::new));*/
     }
 
     @Override

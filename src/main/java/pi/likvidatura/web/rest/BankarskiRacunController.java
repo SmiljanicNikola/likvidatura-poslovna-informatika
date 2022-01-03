@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pi.likvidatura.domain.BankarskiRacun;
 import pi.likvidatura.repository.BankarskiRacunRepository;
 import pi.likvidatura.service.BankarskiRacunService;
 import pi.likvidatura.service.dto.BankarskiRacunDTO;
@@ -26,6 +28,7 @@ import pi.likvidatura.service.dto.BankarskiRacunDTO;
  * REST controller for managing {@link pi.likvidatura.domain.BankarskiRacun}.
  */
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 @RequestMapping("/api/bankarski-racuni")
 public class BankarskiRacunController {
 
@@ -77,7 +80,7 @@ public class BankarskiRacunController {
     }
 
     @GetMapping()
-    public List<BankarskiRacunDTO> getAllBankarskiRacuni() {
+    public List<BankarskiRacun> getAllBankarskiRacuni() {
         log.debug("REST request to get all BankarskiRacuns");
         return bankarskiRacunService.findAll();
     }

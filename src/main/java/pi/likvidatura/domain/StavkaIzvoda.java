@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * A StavkaIzvoda.
  */
@@ -52,6 +54,7 @@ public class StavkaIzvoda implements Serializable {
     private String pozivNaBroj;
 
     @ManyToOne
+    @JsonIgnore
     private DnevnoStanje dnevnoStanje;
 
     public Long getId() {

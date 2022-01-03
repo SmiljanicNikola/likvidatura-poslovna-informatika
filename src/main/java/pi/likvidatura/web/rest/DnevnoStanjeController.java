@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pi.likvidatura.domain.DnevnoStanje;
 import pi.likvidatura.repository.DnevnoStanjeRepository;
 import pi.likvidatura.service.DnevnoStanjeService;
 import pi.likvidatura.service.dto.DnevnoStanjeDTO;
@@ -77,7 +78,7 @@ public class DnevnoStanjeController {
     }
 
     @GetMapping()
-    public List<DnevnoStanjeDTO> getAllDnevnaStanja() {
+    public List<DnevnoStanje> getAllDnevnaStanja() {
         log.debug("REST request to get all");
         return dnevnoStanjeService.findAll();
     }

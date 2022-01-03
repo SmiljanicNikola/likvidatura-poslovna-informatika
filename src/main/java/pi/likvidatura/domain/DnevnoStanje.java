@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * A DnevnoStanje.
  */
@@ -50,6 +52,7 @@ public class DnevnoStanje implements Serializable {
     private Double rezervisano;
 
     @OneToMany(mappedBy = "dnevnoStanje")
+    @JsonIgnore
     private Set<StavkaIzvoda> stavkeIzvoda = new HashSet<>();
 
     @ManyToOne

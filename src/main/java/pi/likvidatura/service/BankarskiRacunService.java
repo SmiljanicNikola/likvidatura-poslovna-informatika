@@ -2,6 +2,8 @@ package pi.likvidatura.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import pi.likvidatura.domain.BankarskiRacun;
 import pi.likvidatura.service.dto.BankarskiRacunDTO;
 
 /**
@@ -21,7 +23,7 @@ public interface BankarskiRacunService {
      *
      * @return the list of entities.
      */
-    List<BankarskiRacunDTO> findAll();
+    List<BankarskiRacun> findAll();
 
     /**
      * Get the "id" bankarskiRacun.

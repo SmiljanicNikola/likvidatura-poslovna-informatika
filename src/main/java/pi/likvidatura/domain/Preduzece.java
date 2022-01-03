@@ -41,6 +41,7 @@ public class Preduzece implements Serializable {
     private String maticniBroj;
 
     @OneToMany(mappedBy = "preduzece")
+    @JsonIgnore
     private Set<BankarskiRacun> bankarskiRacuns = new HashSet<>();
 
     @OneToMany(mappedBy="preduzece")

@@ -1,17 +1,22 @@
 package pi.likvidatura.domain;
 
+import static javax.persistence.CascadeType.ALL;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * A BankarskiRacun.
@@ -30,13 +35,13 @@ public class BankarskiRacun implements Serializable {
     @Column(name = "broj_racuna")
     private String brojRacuna;
 
-    @OneToMany(mappedBy = "bankarskiRacun")
+    @OneToMany(mappedBy = "bankarskiRacun",fetch = FetchType.LAZY)
     private Set<DnevnoStanje> dnevnaStanja = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade= {ALL},fetch = FetchType.EAGER)
     private Preduzece preduzece;
 
-    @ManyToOne
+    @ManyToOne(cascade= {ALL},fetch = FetchType.EAGER)
     private Banka banka;
 
     public Long getId() {
@@ -64,7 +69,7 @@ public class BankarskiRacun implements Serializable {
     public void setBrojRacuna(String brojRacuna) {
         this.brojRacuna = brojRacuna;
     }
-
+/*
     public Set<DnevnoStanje> getDnevnoStanjes() {
         return this.dnevnaStanja;
     }
@@ -88,7 +93,7 @@ public class BankarskiRacun implements Serializable {
         this.dnevnaStanja.add(dnevnoStanje);
         dnevnoStanje.setBankarskiRacun(this);
         return this;
-    }
+    }*/
 
     public BankarskiRacun removeDnevnoStanje(DnevnoStanje dnevnoStanje) {
         this.dnevnaStanja.remove(dnevnoStanje);
