@@ -1,0 +1,1 @@
+# likvidatura-poslovna-informatika
