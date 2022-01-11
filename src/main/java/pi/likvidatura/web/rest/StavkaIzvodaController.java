@@ -2,6 +2,7 @@ package pi.likvidatura.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -84,6 +85,18 @@ public class StavkaIzvodaController {
     public List<StavkaIzvoda> getAllStavkeIzvoda() {
         log.debug("REST request to get all");
         return stavkaIzvodaService.findAll();
+    }
+    
+    @GetMapping("/sve")
+    public List<StavkaIzvoda> getAllStavkeIzvoda2() {
+        log.debug("REST request to get all");
+        List<StavkaIzvoda> stavke = new ArrayList<>();
+        List<StavkaIzvoda> odgovarajuceStavke = new ArrayList<>();
+        stavke = stavkaIzvodaService.findAll();
+        for(StavkaIzvoda stavka : stavke) {
+        	
+        }
+        return stavke;
     }
 
     @GetMapping("/{id}")

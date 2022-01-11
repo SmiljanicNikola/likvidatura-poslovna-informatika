@@ -52,6 +52,9 @@ public class StavkaIzvoda implements Serializable {
 
     @Column(name = "poziv_na_broj")
     private String pozivNaBroj;
+    
+    @Column(name = "proknjizeno")
+    private boolean proknjizeno;
 
     @ManyToOne
     @JsonIgnore
@@ -187,7 +190,18 @@ public class StavkaIzvoda implements Serializable {
         this.pozivNaBroj = pozivNaBroj;
     }
 
-    public DnevnoStanje getDnevnoStanje() {
+    
+    
+    
+    public boolean isProknjizeno() {
+		return proknjizeno;
+	}
+
+	public void setProknjizeno(boolean proknjizeno) {
+		this.proknjizeno = proknjizeno;
+	}
+
+	public DnevnoStanje getDnevnoStanje() {
         return this.dnevnoStanje;
     }
 

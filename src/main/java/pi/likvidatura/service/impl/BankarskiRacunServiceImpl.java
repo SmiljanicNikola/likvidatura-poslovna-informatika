@@ -58,4 +58,14 @@ public class BankarskiRacunServiceImpl implements BankarskiRacunService {
     public void delete(Long id) {
         bankarskiRacunRepository.deleteById(id);
     }
+
+	@Override
+	public Optional<BankarskiRacun> findOne2(Long id) {
+		return bankarskiRacunRepository.findById(id);
+	}
+
+	@Override
+	public BankarskiRacun findOne3(Long id) {
+		return bankarskiRacunRepository.findById(id).orElse(null);
+	}
 }

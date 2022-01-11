@@ -3,6 +3,7 @@ package pi.likvidatura.service;
 import java.util.List;
 import java.util.Optional;
 
+import pi.likvidatura.domain.BankarskiRacun;
 import pi.likvidatura.domain.PoslovnaGodina;
 import pi.likvidatura.service.dto.PoslovnaGodinaDTO;
 
@@ -32,6 +33,9 @@ public interface PoslovnaGodinaService {
      * @return the entity.
      */
     Optional<PoslovnaGodinaDTO> findOne(Long id);
+    
+    public PoslovnaGodina findOne2(Long id);
+
 
     /**
      * Delete the "id" poslovnaGodina.

@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pi.likvidatura.domain.IzlaznaFaktura;
+import pi.likvidatura.domain.PoslovnaGodina;
 import pi.likvidatura.repository.IzlaznaFakturaRepository;
+import pi.likvidatura.repository.PoslovnaGodinaRepository;
 import pi.likvidatura.service.IzlaznaFakturaService;
+import pi.likvidatura.service.PoslovnaGodinaService;
 import pi.likvidatura.service.dto.IzlaznaFakturaDTO;
 
 /**
@@ -36,11 +39,15 @@ public class IzlaznaFakturaController {
     private final Logger log = LoggerFactory.getLogger(IzlaznaFakturaController.class);
 
     private final IzlaznaFakturaService izlaznaFakturaService;
+    private final PoslovnaGodinaService poslovnaGodinaService;
     private final IzlaznaFakturaRepository izlaznaFakturaRepository;
+    private final PoslovnaGodinaRepository poslovnaGodinaRepository;
 
-    public IzlaznaFakturaController(IzlaznaFakturaService izlaznaFakturaService, IzlaznaFakturaRepository izlaznaFakturaRepository) {
+    public IzlaznaFakturaController(IzlaznaFakturaService izlaznaFakturaService, IzlaznaFakturaRepository izlaznaFakturaRepository, PoslovnaGodinaRepository poslovnaGodinaRepository, PoslovnaGodinaService poslovnaGodinaService) {
         this.izlaznaFakturaService = izlaznaFakturaService;
         this.izlaznaFakturaRepository = izlaznaFakturaRepository;
+        this.poslovnaGodinaRepository = poslovnaGodinaRepository;
+        this.poslovnaGodinaService = poslovnaGodinaService;
     }
 
     @PostMapping()
@@ -57,26 +64,38 @@ public class IzlaznaFakturaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<IzlaznaFakturaDTO> updateIzlaznaFaktura(
+    public ResponseEntity<IzlaznaFaktura> updateIzlaznaFaktura( //IzlaznaFakturaDTO promenjeno u IzlaznFaktura
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody IzlaznaFakturaDTO izlaznaFakturaDTO
+        //@RequestBody IzlaznaFakturaDTO izlaznaFakturaDTO
+        @RequestBody IzlaznaFaktura izlaznaFaktura
     ) throws URISyntaxException {
-        log.debug("REST request to update IzlaznaFaktura : {}, {}", id, izlaznaFakturaDTO);
-        if (izlaznaFakturaDTO.getId() == null) {
+        log.debug("REST request to update IzlaznaFaktura : {}, {}", id, izlaznaFaktura);
+        if (izlaznaFaktura.getId() == null) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!Objects.equals(id, izlaznaFakturaDTO.getId())) {
+        if (!Objects.equals(id, izlaznaFaktura.getId())) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         if (!izlaznaFakturaRepository.existsById(id)) {
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        IzlaznaFakturaDTO result = izlaznaFakturaService.save(izlaznaFakturaDTO);
-        return ResponseEntity
-            .ok()
-            .body(result);
+        	izlaznaFaktura.setBrojFakture(izlaznaFaktura.getBrojFakture());
+        	izlaznaFaktura.setPocetniIznosZaPlacanje(izlaznaFaktura.getPocetniIznosZaPlacanje());
+        	izlaznaFaktura.setPreostaliIznosZaPlacanje(izlaznaFaktura.getPreostaliIznosZaPlacanje());
+        	izlaznaFaktura.setPozivNaBroj(izlaznaFaktura.getPozivNaBroj());
+        	izlaznaFaktura.setStatusFakture(izlaznaFaktura.getStatusFakture());
+        	/*Long poslovnaGodinaId = izlaznaFaktura.getPoslovnaGodina().getId();
+        	PoslovnaGodina poslovnaGodina = poslovnaGodinaService.findOne2(poslovnaGodinaId);
+        	izlaznaFaktura.setPoslovnaGodina(poslovnaGodina);*/
+        	
+        
+       
+	        //IzlaznaFakturaDTO result = izlaznaFakturaService.save(izlaznaFakturaDTO); SA DTO-om !!!!!!!!!
+	        IzlaznaFaktura result = izlaznaFakturaService.save(izlaznaFaktura);
+	        return ResponseEntity
+	            .ok()
+	            .body(result);
     }
 
     @GetMapping()
@@ -85,16 +104,27 @@ public class IzlaznaFakturaController {
         return izlaznaFakturaService.findAll();
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<IzlaznaFakturaDTO> getIzlaznaFaktura(@PathVariable Long id) {
         log.debug("REST request to get IzlaznaFaktura : {}", id);
         Optional<IzlaznaFakturaDTO> izlaznaFakturaDTO = izlaznaFakturaService.findOne(id);
+        Ovde komif(izlaznaFakturaDTO.isEmpty()) {
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } ovde kraj kom
+        return ResponseEntity
+                .ok()
+                .body(izlaznaFakturaDTO.get());
+    }*/
+    @GetMapping("/{id}")
+    public ResponseEntity<IzlaznaFaktura> getIzlaznaFaktura(@PathVariable Long id) {
+        log.debug("REST request to get IzlaznaFaktura : {}", id);
+        IzlaznaFaktura izlaznaFaktura = izlaznaFakturaService.findOne2(id);
         /*if(izlaznaFakturaDTO.isEmpty()) {
         	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }*/
         return ResponseEntity
                 .ok()
-                .body(izlaznaFakturaDTO.get());
+                .body(izlaznaFaktura);
     }
 
     @DeleteMapping("/{id}")

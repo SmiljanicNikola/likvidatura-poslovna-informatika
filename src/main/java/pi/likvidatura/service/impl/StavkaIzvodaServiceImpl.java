@@ -1,5 +1,6 @@
 package pi.likvidatura.service.impl;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pi.likvidatura.domain.StavkaIzvoda;
 import pi.likvidatura.repository.StavkaIzvodaRepository;
+import pi.likvidatura.repository.StavkaIzvodaRepository2;
 import pi.likvidatura.service.StavkaIzvodaService;
 import pi.likvidatura.service.dto.StavkaIzvodaDTO;
 import pi.likvidatura.service.mapper.StavkaIzvodaMapper;
@@ -24,12 +26,15 @@ public class StavkaIzvodaServiceImpl implements StavkaIzvodaService {
     private final Logger log = LoggerFactory.getLogger(StavkaIzvodaServiceImpl.class);
 
     private final StavkaIzvodaRepository stavkaIzvodaRepository;
+    
+    private final StavkaIzvodaRepository2 stavkaIzvodaRepository2;
 
     private final StavkaIzvodaMapper stavkaIzvodaMapper;
 
-    public StavkaIzvodaServiceImpl(StavkaIzvodaRepository stavkaIzvodaRepository, StavkaIzvodaMapper stavkaIzvodaMapper) {
+    public StavkaIzvodaServiceImpl(StavkaIzvodaRepository stavkaIzvodaRepository, StavkaIzvodaMapper stavkaIzvodaMapper, StavkaIzvodaRepository2 stavkaIzvodaRepository2) {
         this.stavkaIzvodaRepository = stavkaIzvodaRepository;
         this.stavkaIzvodaMapper = stavkaIzvodaMapper;
+        this.stavkaIzvodaRepository2 = stavkaIzvodaRepository2;
     }
 
     @Override
@@ -62,4 +67,13 @@ public class StavkaIzvodaServiceImpl implements StavkaIzvodaService {
         log.debug("Request to delete StavkaIzvoda : {}", id);
         stavkaIzvodaRepository.deleteById(id);
     }
+
+	@Override
+	public List<StavkaIzvoda> findByPoziv(String pozivNaBroj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
 }

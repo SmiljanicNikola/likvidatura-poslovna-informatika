@@ -103,4 +103,11 @@ public class DnevnoStanjeController {
             .noContent()
             .build();
     }
+    
+    @GetMapping("/importData")
+    public void importDataInDB() {
+    	dnevnoStanjeService.importDnevnoStanjeData();
+    }
+    
+    
 }

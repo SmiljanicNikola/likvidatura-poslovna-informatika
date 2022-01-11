@@ -33,8 +33,17 @@ public class IzlaznaFaktura implements Serializable {
     @Column(name = "broj_fakture")
     private String brojFakture;
 
-    @Column(name = "iznos_za_placanje")
-    private Double iznosZaPlacanje;
+    @Column(name = "pocetni_iznos_za_placanje")
+    private Double pocetniIznosZaPlacanje;
+    
+    @Column(name = "preostali_iznos_za_placanje")
+    private Double preostaliIznosZaPlacanje;
+    
+    @Column(name="poziv_na_broj")
+    private String pozivNaBroj;
+    
+    @Column(name="status_fakture")
+    private String statusFakture;
 
     @ManyToOne
     //@JsonIgnore
@@ -66,24 +75,44 @@ public class IzlaznaFaktura implements Serializable {
         this.brojFakture = brojFakture;
     }
 
-    public Double getIznosZaPlacanje() {
-        return this.iznosZaPlacanje;
-    }
+    
 
-    public IzlaznaFaktura iznosZaPlacanje(Double iznosZaPlacanje) {
-        this.setIznosZaPlacanje(iznosZaPlacanje);
+    public IzlaznaFaktura pocetniIznosZaPlacanje(Double pocetniIznosZaPlacanje) {
+        this.setPocetniIznosZaPlacanje(pocetniIznosZaPlacanje);
         return this;
     }
 
-    public void setIznosZaPlacanje(Double iznosZaPlacanje) {
-        this.iznosZaPlacanje = iznosZaPlacanje;
-    }
+  
 
     public PoslovnaGodina getPoslovnaGodina() {
         return this.poslovnaGodina;
     }
 
-    public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
+    public Double getPocetniIznosZaPlacanje() {
+		return pocetniIznosZaPlacanje;
+	}
+
+	public void setPocetniIznosZaPlacanje(Double pocetniIznosZaPlacanje) {
+		this.pocetniIznosZaPlacanje = pocetniIznosZaPlacanje;
+	}
+
+	public Double getPreostaliIznosZaPlacanje() {
+		return preostaliIznosZaPlacanje;
+	}
+
+	public void setPreostaliIznosZaPlacanje(Double preostaliIznosZaPlacanje) {
+		this.preostaliIznosZaPlacanje = preostaliIznosZaPlacanje;
+	}
+
+	public String getPozivNaBroj() {
+		return pozivNaBroj;
+	}
+
+	public void setPozivNaBroj(String pozivNaBroj) {
+		this.pozivNaBroj = pozivNaBroj;
+	}
+
+	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
         this.poslovnaGodina = poslovnaGodina;
     }
 
@@ -91,8 +120,19 @@ public class IzlaznaFaktura implements Serializable {
         this.setPoslovnaGodina(poslovnaGodina);
         return this;
     }
+    
+    
 
-    @Override
+    
+	public String getStatusFakture() {
+		return statusFakture;
+	}
+
+	public void setStatusFakture(String statusFakture) {
+		this.statusFakture = statusFakture;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -109,13 +149,12 @@ public class IzlaznaFaktura implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "IzlaznaFaktura{" +
-            "id=" + getId() +
-            ", brojFakture='" + getBrojFakture() + "'" +
-            ", iznosZaPlacanje=" + getIznosZaPlacanje() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "IzlaznaFaktura [id=" + id + ", brojFakture=" + brojFakture + ", pocetniIznosZaPlacanje="
+				+ pocetniIznosZaPlacanje + ", preostaliIznosZaPlacanje=" + preostaliIznosZaPlacanje + ", pozivNaBroj="
+				+ pozivNaBroj + ", statusFakture=" + statusFakture + ", poslovnaGodina=" + poslovnaGodina + "]";
+	}
+
+    
 }

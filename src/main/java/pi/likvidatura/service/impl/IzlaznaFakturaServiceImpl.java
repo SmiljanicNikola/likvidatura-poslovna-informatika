@@ -62,4 +62,15 @@ public class IzlaznaFakturaServiceImpl implements IzlaznaFakturaService {
         log.debug("Request to delete IzlaznaFaktura : {}", id);
         izlaznaFakturaRepository.deleteById(id);
     }
+
+	@Override
+	public IzlaznaFaktura save(IzlaznaFaktura izlaznaFaktura) {
+		return izlaznaFaktura = izlaznaFakturaRepository.save(izlaznaFaktura);
+	}
+
+	@Override
+	public IzlaznaFaktura findOne2(Long id) {
+		return izlaznaFakturaRepository.findById(id).orElse(null);
+
+	}
 }

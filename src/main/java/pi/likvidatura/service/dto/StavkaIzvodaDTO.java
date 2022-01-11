@@ -27,6 +27,8 @@ public class StavkaIzvodaDTO implements Serializable {
     private Integer model;
 
     private String pozivNaBroj;
+    
+    private boolean proknjizeno;
 
     private DnevnoStanjeDTO dnevnoStanje;
 
@@ -113,8 +115,18 @@ public class StavkaIzvodaDTO implements Serializable {
     public DnevnoStanjeDTO getDnevnoStanje() {
         return dnevnoStanje;
     }
+    
+    
 
-    public void setDnevnoStanje(DnevnoStanjeDTO dnevnoStanje) {
+    public boolean isProknjizeno() {
+		return proknjizeno;
+	}
+
+	public void setProknjizeno(boolean proknjizeno) {
+		this.proknjizeno = proknjizeno;
+	}
+
+	public void setDnevnoStanje(DnevnoStanjeDTO dnevnoStanje) {
         this.dnevnoStanje = dnevnoStanje;
     }
 

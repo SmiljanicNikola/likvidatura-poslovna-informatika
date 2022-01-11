@@ -17,6 +17,8 @@ public interface IzlaznaFakturaService {
      * @return the persisted entity.
      */
     IzlaznaFakturaDTO save(IzlaznaFakturaDTO izlaznaFakturaDTO);
+    
+    IzlaznaFaktura save(IzlaznaFaktura izlaznaFaktura);
 
     /**
      * Get all the izlaznaFakturas.
@@ -32,6 +34,8 @@ public interface IzlaznaFakturaService {
      * @return the entity.
      */
     Optional<IzlaznaFakturaDTO> findOne(Long id);
+    IzlaznaFaktura findOne2(Long id);
+
 
     /**
      * Delete the "id" izlaznaFaktura.

@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import pi.likvidatura.domain.BankarskiRacun;
 import pi.likvidatura.domain.PoslovnaGodina;
 import pi.likvidatura.repository.PoslovnaGodinaRepository;
 import pi.likvidatura.service.PoslovnaGodinaService;
@@ -63,4 +65,11 @@ public class PoslovnaGodinaServiceImpl implements PoslovnaGodinaService {
         log.debug("Request to delete PoslovnaGodina : {}", id);
         poslovnaGodinaRepository.deleteById(id);
     }
+
+	@Override
+	public PoslovnaGodina findOne2(Long id) {
+		return poslovnaGodinaRepository.findById(id).orElse(null);
+
+	}
+	
 }
