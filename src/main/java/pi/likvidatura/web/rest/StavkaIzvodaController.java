@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -57,16 +58,16 @@ public class StavkaIzvodaController {
             .body(result);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<StavkaIzvodaDTO> updateStavkaIzvoda(
+    /*@PutMapping("/{id}")
+    public ResponseEntity<StavkaIzvoda> updateStavkaIzvoda(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody StavkaIzvodaDTO stavkaIzvodaDTO
+        @RequestBody StavkaIzvoda stavkaIzvoda
     ) throws URISyntaxException {
-        log.debug("REST request to update StavkaIzvoda : {}, {}", id, stavkaIzvodaDTO);
-        if (stavkaIzvodaDTO.getId() == null) {
+        log.debug("REST request to update StavkaIzvoda : {}, {}", id, stavkaIzvoda);
+        if (stavkaIzvoda.getId() == null) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        if (!Objects.equals(id, stavkaIzvodaDTO.getId())) {
+        if (!Objects.equals(id, stavkaIzvoda.getId())) {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -74,10 +75,31 @@ public class StavkaIzvodaController {
         	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        StavkaIzvodaDTO result = stavkaIzvodaService.save(stavkaIzvodaDTO);
+        StavkaIzvoda result = stavkaIzvodaService.save(stavkaIzvoda);
         return ResponseEntity
             .ok()
             .body(result);
+    }*/
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody StavkaIzvoda stavka, @PathVariable Long id){
+    	try {
+    		StavkaIzvoda postojanaStavka = stavkaIzvodaService.get(id);
+    		if(postojanaStavka != null) {
+    			/*postojanaStavka.setBrojStavke(stavka.getBrojStavke());
+    			postojanaStavka.setIznos(stavka.getIznos());
+    			postojanaStavka.setDuznik(stavka.getDuznik());
+    			postojanaStavka.setSvrhaPlacanja(stavka.getSvrhaPlacanja());
+    			postojanaStavka.setPrimalac(stavka.getPrimalac());
+    			postojanaStavka.setRacunDuznika(stavka.getRacunDuznika());*/
+    			postojanaStavka.setProknjizeno(true);
+    			
+    			stavkaIzvodaService.save(postojanaStavka);
+    		}
+		return new ResponseEntity<>(HttpStatus.OK);
+    }catch(NoSuchElementException e) {
+    	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
     }
 
     
@@ -87,16 +109,18 @@ public class StavkaIzvodaController {
         return stavkaIzvodaService.findAll();
     }
     
-    @GetMapping("/sve")
-    public List<StavkaIzvoda> getAllStavkeIzvoda2() {
-        log.debug("REST request to get all");
+    @GetMapping("/poziv/{pozivNaBroj}")
+    public List<StavkaIzvoda> getAllStavkeIzvoda2(@PathVariable String pozivNaBroj) {
+        log.debug("REST request to get StavkaIzvoda : {}", pozivNaBroj);
         List<StavkaIzvoda> stavke = new ArrayList<>();
         List<StavkaIzvoda> odgovarajuceStavke = new ArrayList<>();
         stavke = stavkaIzvodaService.findAll();
         for(StavkaIzvoda stavka : stavke) {
-        	
+        	if(stavka.getPozivNaBroj().equals(pozivNaBroj)) {
+        		odgovarajuceStavke.add(stavka);
+        	}
         }
-        return stavke;
+        return odgovarajuceStavke;
     }
 
     @GetMapping("/{id}")

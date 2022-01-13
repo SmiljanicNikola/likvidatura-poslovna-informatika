@@ -3,6 +3,7 @@ package pi.likvidatura.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pi.likvidatura.domain.IzlaznaFaktura;
 import pi.likvidatura.domain.PoslovnaGodina;
+import pi.likvidatura.domain.StavkaIzvoda;
 import pi.likvidatura.repository.IzlaznaFakturaRepository;
 import pi.likvidatura.repository.PoslovnaGodinaRepository;
 import pi.likvidatura.service.IzlaznaFakturaService;
@@ -63,7 +65,7 @@ public class IzlaznaFakturaController {
             .body(result);
     }
 
-    @PutMapping("/{id}")
+    /*@PutMapping("/{id}")
     public ResponseEntity<IzlaznaFaktura> updateIzlaznaFaktura( //IzlaznaFakturaDTO promenjeno u IzlaznFaktura
         @PathVariable(value = "id", required = false) final Long id,
         //@RequestBody IzlaznaFakturaDTO izlaznaFakturaDTO
@@ -85,9 +87,9 @@ public class IzlaznaFakturaController {
         	izlaznaFaktura.setPreostaliIznosZaPlacanje(izlaznaFaktura.getPreostaliIznosZaPlacanje());
         	izlaznaFaktura.setPozivNaBroj(izlaznaFaktura.getPozivNaBroj());
         	izlaznaFaktura.setStatusFakture(izlaznaFaktura.getStatusFakture());
-        	/*Long poslovnaGodinaId = izlaznaFaktura.getPoslovnaGodina().getId();
-        	PoslovnaGodina poslovnaGodina = poslovnaGodinaService.findOne2(poslovnaGodinaId);
-        	izlaznaFaktura.setPoslovnaGodina(poslovnaGodina);*/
+        	//Long poslovnaGodinaId = izlaznaFaktura.getPoslovnaGodina().getId();
+        	//PoslovnaGodina poslovnaGodina = poslovnaGodinaService.findOne2(poslovnaGodinaId);
+        	//izlaznaFaktura.setPoslovnaGodina(poslovnaGodina);
         	
         
        
@@ -96,7 +98,31 @@ public class IzlaznaFakturaController {
 	        return ResponseEntity
 	            .ok()
 	            .body(result);
+    }*/
+    
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody IzlaznaFaktura faktura, @PathVariable Long id){
+    	try {
+    		IzlaznaFaktura postojanaFaktura = izlaznaFakturaService.findOne2(id);
+    		if(postojanaFaktura != null) {
+    			/*postojanaStavka.setBrojStavke(stavka.getBrojStavke());
+    			postojanaStavka.setIznos(stavka.getIznos());
+    			postojanaStavka.setDuznik(stavka.getDuznik());
+    			postojanaStavka.setSvrhaPlacanja(stavka.getSvrhaPlacanja());
+    			postojanaStavka.setPrimalac(stavka.getPrimalac());
+    			postojanaStavka.setRacunDuznika(stavka.getRacunDuznika());*/
+    			postojanaFaktura.setPreostaliIznosZaPlacanje(faktura.getPreostaliIznosZaPlacanje());
+    			postojanaFaktura.setStatusFakture("zatvorena");;
+    			
+    			izlaznaFakturaService.save(postojanaFaktura);
+    		}
+		return new ResponseEntity<>(HttpStatus.OK);
+    }catch(NoSuchElementException e) {
+    	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    }
+
 
     @GetMapping()
     public List<IzlaznaFaktura> getAllIzlazneFakture() {

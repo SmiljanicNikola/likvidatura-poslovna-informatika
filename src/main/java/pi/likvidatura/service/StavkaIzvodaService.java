@@ -17,6 +17,8 @@ public interface StavkaIzvodaService {
      * @return the persisted entity.
      */
     StavkaIzvodaDTO save(StavkaIzvodaDTO stavkaIzvodaDTO);
+    
+    StavkaIzvoda save(StavkaIzvoda stavkaIzvoda);
 
     /**
      * Get all the stavkaIzvodas.
@@ -32,6 +34,8 @@ public interface StavkaIzvodaService {
      * @return the entity.
      */
     Optional<StavkaIzvodaDTO> findOne(Long id);
+    
+    StavkaIzvoda get(Long id);
 
     /**
      * Delete the "id" stavkaIzvoda.

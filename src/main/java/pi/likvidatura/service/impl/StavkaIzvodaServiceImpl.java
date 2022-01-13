@@ -74,6 +74,16 @@ public class StavkaIzvodaServiceImpl implements StavkaIzvodaService {
 		return null;
 	}
 
+	@Override
+	public StavkaIzvoda save(StavkaIzvoda stavkaIzvoda) {
+		return stavkaIzvoda = stavkaIzvodaRepository.save(stavkaIzvoda);
+	}
+
+	@Override
+	public StavkaIzvoda get(Long id) {
+		return stavkaIzvodaRepository.findById(id).orElse(null);
+	}
+
 	
 
 }
