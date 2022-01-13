@@ -1,11 +1,17 @@
 package pi.likvidatura.web.rest;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lowagie.text.DocumentException;
+
+import pi.likvidatura.domain.FakturaPDFExporter;
 import pi.likvidatura.domain.IzlaznaFaktura;
 import pi.likvidatura.domain.PoslovnaGodina;
 import pi.likvidatura.domain.StavkaIzvoda;
@@ -161,4 +170,24 @@ public class IzlaznaFakturaController {
             .noContent()
             .build();
     }
+    
+    @GetMapping("/izlazne-fakture/export")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+    	response.setContentType("application/pdf");
+    	DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+    	String currentDateTime = dateFormatter.format(new Date());
+    	
+    	
+    	String headerKey = "Content-Disposition";
+    	String headerValue = "attachment; filename=fakture_" + currentDateTime + ".pdf";
+    	
+    	response.setHeader(headerKey, headerValue);
+    	
+    	List<IzlaznaFaktura> listaIzlaznihFaktura = izlaznaFakturaService.findAll();
+    	
+    	FakturaPDFExporter exporter = new FakturaPDFExporter(listaIzlaznihFaktura);
+    	exporter.export(response);
+    }
+    
+    
 }
