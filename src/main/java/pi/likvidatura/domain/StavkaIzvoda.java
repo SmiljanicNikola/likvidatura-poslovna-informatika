@@ -31,6 +31,9 @@ public class StavkaIzvoda implements Serializable {
 
     @Column(name = "iznos")
     private Double iznos;
+    
+    @Column(name = "preostali_iznos")
+    private Double preostaliIznos;
 
     @Column(name = "duznik")
     private String duznik;
@@ -98,8 +101,18 @@ public class StavkaIzvoda implements Serializable {
     public void setIznos(Double iznos) {
         this.iznos = iznos;
     }
+    
+    
 
-    public String getDuznik() {
+    public double getPreostaliIznos() {
+		return preostaliIznos;
+	}
+
+	public void setPreostaliIznos(double preostaliIznos) {
+		this.preostaliIznos = preostaliIznos;
+	}
+
+	public String getDuznik() {
         return this.duznik;
     }
 
@@ -193,7 +206,67 @@ public class StavkaIzvoda implements Serializable {
     
     
     
-    public boolean isProknjizeno() {
+    public StavkaIzvoda(Integer brojStavke, String duznik, Double iznos,Integer model, String pozivNaBroj,
+			String primalac, String racunDuznika, String racunPrimaoca, String svrhaPlacanja,
+			boolean proknjizeno, DnevnoStanje dnevnoStanje) {
+		super();
+		this.brojStavke = brojStavke;
+		this.duznik = duznik;
+		this.iznos = iznos;
+		this.model = model;
+		this.pozivNaBroj = pozivNaBroj;
+		this.primalac = primalac;
+		this.racunDuznika = racunDuznika;
+		this.racunPrimaoca = racunPrimaoca;
+		this.svrhaPlacanja = svrhaPlacanja;
+		this.proknjizeno = proknjizeno;
+		this.dnevnoStanje = dnevnoStanje;
+	}
+    
+  
+
+	
+
+	public StavkaIzvoda(Integer brojStavke, Double iznos, Double preostaliIznos, String duznik, String svrhaPlacanja,
+			String primalac, String racunDuznika, String racunPrimaoca, Integer model, String pozivNaBroj,
+			boolean proknjizeno, DnevnoStanje dnevnoStanje) {
+		super();
+		this.brojStavke = brojStavke;
+		this.iznos = iznos;
+		this.preostaliIznos = preostaliIznos;
+		this.duznik = duznik;
+		this.svrhaPlacanja = svrhaPlacanja;
+		this.primalac = primalac;
+		this.racunDuznika = racunDuznika;
+		this.racunPrimaoca = racunPrimaoca;
+		this.model = model;
+		this.pozivNaBroj = pozivNaBroj;
+		this.proknjizeno = proknjizeno;
+		this.dnevnoStanje = dnevnoStanje;
+	}
+
+	public StavkaIzvoda(Integer brojStavke, Double iznos, Double preostaliIznos, String duznik, String svrhaPlacanja,
+			String primalac, String racunDuznika, String racunPrimaoca, Integer model, String pozivNaBroj,
+			boolean proknjizeno) {
+		super();
+		this.brojStavke = brojStavke;
+		this.iznos = iznos;
+		this.preostaliIznos = preostaliIznos;
+		this.duznik = duznik;
+		this.svrhaPlacanja = svrhaPlacanja;
+		this.primalac = primalac;
+		this.racunDuznika = racunDuznika;
+		this.racunPrimaoca = racunPrimaoca;
+		this.model = model;
+		this.pozivNaBroj = pozivNaBroj;
+		this.proknjizeno = proknjizeno;
+	}
+
+	public StavkaIzvoda() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public boolean isProknjizeno() {
 		return proknjizeno;
 	}
 
@@ -238,6 +311,7 @@ public class StavkaIzvoda implements Serializable {
             "id=" + getId() +
             ", brojStavke=" + getBrojStavke() +
             ", iznos=" + getIznos() +
+            ", preostaliIznos=" + getPreostaliIznos() +
             ", duznik='" + getDuznik() + "'" +
             ", svrhaPlacanja='" + getSvrhaPlacanja() + "'" +
             ", primalac='" + getPrimalac() + "'" +

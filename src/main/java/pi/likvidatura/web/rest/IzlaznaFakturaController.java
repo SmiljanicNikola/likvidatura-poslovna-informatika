@@ -115,15 +115,15 @@ public class IzlaznaFakturaController {
     	try {
     		IzlaznaFaktura postojanaFaktura = izlaznaFakturaService.findOne2(id);
     		if(postojanaFaktura != null) {
-    			/*postojanaStavka.setBrojStavke(stavka.getBrojStavke());
-    			postojanaStavka.setIznos(stavka.getIznos());
-    			postojanaStavka.setDuznik(stavka.getDuznik());
-    			postojanaStavka.setSvrhaPlacanja(stavka.getSvrhaPlacanja());
-    			postojanaStavka.setPrimalac(stavka.getPrimalac());
-    			postojanaStavka.setRacunDuznika(stavka.getRacunDuznika());*/
+    			postojanaFaktura.setBrojFakture(faktura.getBrojFakture());
+    			postojanaFaktura.setPocetniIznosZaPlacanje(faktura.getPocetniIznosZaPlacanje());
+    			postojanaFaktura.setPozivNaBroj(faktura.getPozivNaBroj());
     			postojanaFaktura.setPreostaliIznosZaPlacanje(faktura.getPreostaliIznosZaPlacanje());
-    			postojanaFaktura.setStatusFakture("zatvorena");;
-    			
+    			if(faktura.getPreostaliIznosZaPlacanje() == 0) {
+    				postojanaFaktura.setStatusFakture("Zatvorena");
+    			}else {
+    				postojanaFaktura.setStatusFakture("Otvorena");
+    			}
     			izlaznaFakturaService.save(postojanaFaktura);
     		}
 		return new ResponseEntity<>(HttpStatus.OK);

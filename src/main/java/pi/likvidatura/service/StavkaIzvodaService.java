@@ -3,6 +3,9 @@ package pi.likvidatura.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import pi.likvidatura.domain.StavkaIzvoda;
 import pi.likvidatura.service.dto.StavkaIzvodaDTO;
 
@@ -44,6 +47,10 @@ public interface StavkaIzvodaService {
      */
     void delete(Long id);
     
+    void importStavkeIzvoda();
+    
     List<StavkaIzvoda> findByPoziv(String pozivNaBroj);
+    
+    Page<StavkaIzvoda> findAll(Pageable pageable);
     
 }

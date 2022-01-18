@@ -3,6 +3,7 @@ package pi.likvidatura.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -10,6 +11,8 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -144,4 +147,15 @@ public class StavkaIzvodaController {
             .noContent()
             .build();
     }
+    
+    @GetMapping("/importDataStavkeIzvoda")
+    public void ImportStavkeIzvodaInDB(){
+    	stavkaIzvodaService.importStavkeIzvoda();
+    }
+    
+    @GetMapping("/paginirano")
+    public ResponseEntity<Page<StavkaIzvoda>> findAll(Pageable pageable){
+    	return new ResponseEntity<>(stavkaIzvodaService.findAll(pageable), HttpStatus.OK);
+    }
+    
 }

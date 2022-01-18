@@ -21,6 +21,8 @@ import pi.likvidatura.service.dto.PoslovnaGodinaDTO;
  */
 @RestController
 @RequestMapping("/api/poslovne-godine")
+@CrossOrigin(origins="http://localhost:3000")
+
 public class PoslovnaGodinaController {
 
     private final Logger log = LoggerFactory.getLogger(PoslovnaGodinaController.class);

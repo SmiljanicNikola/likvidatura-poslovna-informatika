@@ -120,6 +120,12 @@ public class DnevnoStanjeServiceImpl implements DnevnoStanjeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public DnevnoStanje get(Long id) {
+		return dnevnoStanjeRepository.findById(id).orElse(null);
+
+	}
 	
 	
 }

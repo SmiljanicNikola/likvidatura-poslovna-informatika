@@ -41,6 +41,8 @@ public interface DnevnoStanjeService {
     void delete(Long id);
     
     void importDnevnoStanjeData();
+    
+    DnevnoStanje get(Long id);
 
 	DnevnoStanje save(DnevnoStanje dnevnoStanje);
 }

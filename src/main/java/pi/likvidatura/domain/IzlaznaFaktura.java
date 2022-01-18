@@ -48,7 +48,10 @@ public class IzlaznaFaktura implements Serializable {
     @ManyToOne
     //@JsonIgnore
     private PoslovnaGodina poslovnaGodina;
-
+    
+    @ManyToOne
+    private PoslovniPartner poslovniPartner;
+    
     public Long getId() {
         return this.id;
     }
@@ -110,6 +113,16 @@ public class IzlaznaFaktura implements Serializable {
 
 	public void setPozivNaBroj(String pozivNaBroj) {
 		this.pozivNaBroj = pozivNaBroj;
+	}
+	
+	
+
+	public PoslovniPartner getPoslovniPartner() {
+		return poslovniPartner;
+	}
+
+	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
+		this.poslovniPartner = poslovniPartner;
 	}
 
 	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
