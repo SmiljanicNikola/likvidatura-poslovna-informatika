@@ -89,13 +89,24 @@ public class StavkaIzvodaController {
     	try {
     		StavkaIzvoda postojanaStavka = stavkaIzvodaService.get(id);
     		if(postojanaStavka != null) {
-    			/*postojanaStavka.setBrojStavke(stavka.getBrojStavke());
+    			postojanaStavka.setBrojStavke(stavka.getBrojStavke());
     			postojanaStavka.setIznos(stavka.getIznos());
+    			if(stavka.getPreostaliIznos() > 0) {
+    			postojanaStavka.setPreostaliIznos(stavka.getPreostaliIznos());
+    			}else {
+    				postojanaStavka.setPreostaliIznos((double) 0);
+    			}
     			postojanaStavka.setDuznik(stavka.getDuznik());
-    			postojanaStavka.setSvrhaPlacanja(stavka.getSvrhaPlacanja());
     			postojanaStavka.setPrimalac(stavka.getPrimalac());
-    			postojanaStavka.setRacunDuznika(stavka.getRacunDuznika());*/
+    			postojanaStavka.setRacunDuznika(stavka.getRacunDuznika());
+    			postojanaStavka.setRacunPrimaoca(stavka.getRacunPrimaoca());
+    			postojanaStavka.setSvrhaPlacanja(stavka.getSvrhaPlacanja());
+    			if(stavka.getPreostaliIznos() <= 0 || postojanaStavka.getPreostaliIznos() <= 0) {
     			postojanaStavka.setProknjizeno(true);
+    			}
+    			else {
+    			postojanaStavka.setProknjizeno(false);
+    			}
     			
     			stavkaIzvodaService.save(postojanaStavka);
     		}

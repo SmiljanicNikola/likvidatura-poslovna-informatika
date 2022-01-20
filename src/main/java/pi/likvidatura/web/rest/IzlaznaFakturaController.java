@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -111,19 +113,25 @@ public class IzlaznaFakturaController {
     
     
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody IzlaznaFaktura faktura, @PathVariable Long id){
+    public ResponseEntity<?> update(@RequestBody IzlaznaFaktura faktura , @PathVariable Long id){
     	try {
     		IzlaznaFaktura postojanaFaktura = izlaznaFakturaService.findOne2(id);
     		if(postojanaFaktura != null) {
     			postojanaFaktura.setBrojFakture(faktura.getBrojFakture());
     			postojanaFaktura.setPocetniIznosZaPlacanje(faktura.getPocetniIznosZaPlacanje());
     			postojanaFaktura.setPozivNaBroj(faktura.getPozivNaBroj());
+    			if(faktura.getPreostaliIznosZaPlacanje() > 0) {
     			postojanaFaktura.setPreostaliIznosZaPlacanje(faktura.getPreostaliIznosZaPlacanje());
-    			if(faktura.getPreostaliIznosZaPlacanje() == 0) {
+    			}else {
+    				postojanaFaktura.setPreostaliIznosZaPlacanje((double) 0);
+    			}
+    			
+    			if(faktura.getPreostaliIznosZaPlacanje() <= 0) {
     				postojanaFaktura.setStatusFakture("Zatvorena");
     			}else {
     				postojanaFaktura.setStatusFakture("Otvorena");
     			}
+    			
     			izlaznaFakturaService.save(postojanaFaktura);
     		}
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -189,5 +197,11 @@ public class IzlaznaFakturaController {
     	exporter.export(response);
     }
     
+    @GetMapping("/paginirano")
+    public ResponseEntity<Page<IzlaznaFaktura>> findAll(Pageable pageable){
+    	return new ResponseEntity<>(izlaznaFakturaService.findAll(pageable), HttpStatus.OK);
+    }
+    
+   
     
 }

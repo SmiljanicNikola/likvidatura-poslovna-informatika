@@ -3,7 +3,11 @@ package pi.likvidatura.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import pi.likvidatura.domain.IzlaznaFaktura;
+import pi.likvidatura.domain.StavkaIzvoda;
 import pi.likvidatura.service.dto.IzlaznaFakturaDTO;
 
 /**
@@ -26,6 +30,8 @@ public interface IzlaznaFakturaService {
      * @return the list of entities.
      */
     List<IzlaznaFaktura> findAll();
+    
+
 
     /**
      * Get the "id" izlaznaFaktura.
@@ -43,4 +49,10 @@ public interface IzlaznaFakturaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    Page<IzlaznaFaktura> findAll(Pageable pageable);
+    
+  
+
+
 }

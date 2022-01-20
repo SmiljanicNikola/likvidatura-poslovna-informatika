@@ -261,6 +261,27 @@ public class StavkaIzvoda implements Serializable {
 		this.pozivNaBroj = pozivNaBroj;
 		this.proknjizeno = proknjizeno;
 	}
+	
+	
+
+	public StavkaIzvoda(Long id, Integer brojStavke, Double iznos, Double preostaliIznos, String duznik,
+			String svrhaPlacanja, String primalac, String racunDuznika, String racunPrimaoca, Integer model,
+			String pozivNaBroj, boolean proknjizeno, DnevnoStanje dnevnoStanje) {
+		super();
+		this.id = id;
+		this.brojStavke = brojStavke;
+		this.iznos = iznos;
+		this.preostaliIznos = preostaliIznos;
+		this.duznik = duznik;
+		this.svrhaPlacanja = svrhaPlacanja;
+		this.primalac = primalac;
+		this.racunDuznika = racunDuznika;
+		this.racunPrimaoca = racunPrimaoca;
+		this.model = model;
+		this.pozivNaBroj = pozivNaBroj;
+		this.proknjizeno = proknjizeno;
+		this.dnevnoStanje = dnevnoStanje;
+	}
 
 	public StavkaIzvoda() {
 		// TODO Auto-generated constructor stub
