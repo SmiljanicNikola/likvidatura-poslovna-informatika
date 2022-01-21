@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -132,6 +133,7 @@ public class IzlaznaFakturaController {
     				postojanaFaktura.setStatusFakture("Otvorena");
     			}
     			
+    			
     			izlaznaFakturaService.save(postojanaFaktura);
     		}
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -202,6 +204,34 @@ public class IzlaznaFakturaController {
     	return new ResponseEntity<>(izlaznaFakturaService.findAll(pageable), HttpStatus.OK);
     }
     
-   
+    @GetMapping("/izlazne-fakture/export/{id}")
+    public void exportToPDFKlijent(HttpServletResponse response,@PathVariable Long id) throws DocumentException, IOException {
+    	response.setContentType("application/pdf");
+    	DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+    	String currentDateTime = dateFormatter.format(new Date());
+    	
+    	
+    	String headerKey = "Content-Disposition";
+    	String headerValue = "attachment; filename=fakture_" + currentDateTime + ".pdf";
+    	
+    	response.setHeader(headerKey, headerValue);
+    	
+    	List<IzlaznaFaktura> listaIzlaznihFaktura = izlaznaFakturaService.findAll();
+
+    	List<IzlaznaFaktura> listaIzlaznihFakturaPartnera = new ArrayList<IzlaznaFaktura>();
+    	
+    	for(IzlaznaFaktura izlazna : listaIzlaznihFaktura) {
+    		if(izlazna.getPoslovniPartner().getId() == id) {
+    			listaIzlaznihFakturaPartnera.add(izlazna);
+    		}
+    		
+    	}
+    	System.out.println(listaIzlaznihFakturaPartnera);
+        log.debug("REST request to delete IzlaznaFaktura : {}", listaIzlaznihFakturaPartnera);
+
+
+    	FakturaPDFExporter exporter = new FakturaPDFExporter(listaIzlaznihFakturaPartnera);
+    	exporter.export(response);
+    }
     
 }

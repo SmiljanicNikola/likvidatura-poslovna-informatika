@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -62,6 +63,9 @@ public class StavkaIzvoda implements Serializable {
     @ManyToOne
     @JsonIgnore
     private DnevnoStanje dnevnoStanje;
+    
+    //@Version
+    //private Long version;
 
     public Long getId() {
         return this.id;

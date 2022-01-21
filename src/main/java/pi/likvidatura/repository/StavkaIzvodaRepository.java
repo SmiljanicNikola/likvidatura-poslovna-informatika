@@ -1,5 +1,7 @@
 package pi.likvidatura.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +12,8 @@ import pi.likvidatura.domain.StavkaIzvoda;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface StavkaIzvodaRepository extends JpaRepository<StavkaIzvoda, Long> {}
+public interface StavkaIzvodaRepository extends JpaRepository<StavkaIzvoda, Long> {
+	
+
+	
+}

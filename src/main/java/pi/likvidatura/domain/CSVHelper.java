@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CSVHelper {
   public static String TYPE = "text/csv";
-  static String[] HEADERs = { "BrojStavke", "Iznos", "PreostaliIznos", "Duznik", "Primalac", "RacunDuznika", "RacunPrimaoca", "SvrhaPlacanja", "Model", "PozivNaBroj", "Proknjizeno"  };
+  static String[] HEADERs = { "BrojStavke", "Iznos", "PreostaliIznos", "Duznik", "Primalac", "RacunDuznika", "RacunPrimaoca", "SvrhaPlacanja", "Model", "PozivNaBroj", "Proknjizeno"};
 
   public static boolean hasCSVFormat(MultipartFile file) {
     if (TYPE.equals(file.getContentType())

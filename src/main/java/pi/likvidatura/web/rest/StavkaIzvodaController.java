@@ -168,5 +168,8 @@ public class StavkaIzvodaController {
     public ResponseEntity<Page<StavkaIzvoda>> findAll(Pageable pageable){
     	return new ResponseEntity<>(stavkaIzvodaService.findAll(pageable), HttpStatus.OK);
     }
-    
+    @GetMapping("/paginirano/search/{searchText}")
+    public ResponseEntity<Page<StavkaIzvoda>> findAll(Pageable pageable, @PathVariable String searchText){
+    	return new ResponseEntity<>(stavkaIzvodaService.findAll(pageable, searchText), HttpStatus.OK);
+    }
 }

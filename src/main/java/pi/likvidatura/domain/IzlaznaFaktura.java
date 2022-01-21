@@ -1,5 +1,7 @@
 package pi.likvidatura.domain;
 
+import static javax.persistence.CascadeType.ALL;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -53,9 +55,9 @@ public class IzlaznaFaktura implements Serializable {
     @ManyToOne
     private PoslovniPartner poslovniPartner;
     
-    /*@Version
-    private Long version;
-    */
+    //@Version
+    //private Long version;
+    
     public Long getId() {
         return this.id;
     }

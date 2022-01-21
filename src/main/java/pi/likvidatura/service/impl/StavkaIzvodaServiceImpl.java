@@ -114,13 +114,14 @@ public class StavkaIzvodaServiceImpl implements StavkaIzvodaService {
 				stavkaIzvoda.setDuznik(data[1]);
 				stavkaIzvoda.setIznos(Double.parseDouble(data[2]));
 				stavkaIzvoda.setModel(Integer.parseInt(data[3]));
-				stavkaIzvoda.setPozivNaBroj(data[4]);
+				stavkaIzvoda.setPreostaliIznos(Double.parseDouble(data[4]));
 				stavkaIzvoda.setPrimalac(data[5]);
-				stavkaIzvoda.setRacunDuznika(data[6]);
-				stavkaIzvoda.setRacunPrimaoca(data[7]);
-				stavkaIzvoda.setSvrhaPlacanja(data[8]);
-				stavkaIzvoda.setProknjizeno(Boolean.parseBoolean(data[9]));
-				long dnevnoStanjeId = Integer.parseInt(data[10]);
+				stavkaIzvoda.setPozivNaBroj(data[6]);
+				stavkaIzvoda.setRacunDuznika(data[7]);
+				stavkaIzvoda.setRacunPrimaoca(data[8]);
+				stavkaIzvoda.setSvrhaPlacanja(data[9]);
+				stavkaIzvoda.setProknjizeno(Boolean.parseBoolean(data[10]));
+				long dnevnoStanjeId = Integer.parseInt(data[11]);
 				DnevnoStanje dnevnoStanje = dnevnoStanjeService.get(dnevnoStanjeId);
 				stavkaIzvoda.setDnevnoStanje(dnevnoStanje);
 				stavkaIzvoda = stavkaIzvodaRepository.save(stavkaIzvoda);
@@ -135,6 +136,14 @@ public class StavkaIzvodaServiceImpl implements StavkaIzvodaService {
 	public Page<StavkaIzvoda> findAll(Pageable pageable) {
 		return stavkaIzvodaRepositoryPaging.findAll(pageable);
 		
+	}
+
+	
+
+
+	@Override
+	public Page<StavkaIzvoda> findAll(Pageable pageable, String searchText) {
+		return stavkaIzvodaRepositoryPaging.findAllStavke(pageable, searchText);
 	}
 
 	

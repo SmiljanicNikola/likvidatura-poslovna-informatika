@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import pi.likvidatura.domain.StavkaIzvoda;
 import pi.likvidatura.service.dto.StavkaIzvodaDTO;
@@ -53,4 +54,7 @@ public interface StavkaIzvodaService {
     
     Page<StavkaIzvoda> findAll(Pageable pageable);
     
+    Page<StavkaIzvoda> findAll(Pageable pageable, String searchText);
+
+        
 }

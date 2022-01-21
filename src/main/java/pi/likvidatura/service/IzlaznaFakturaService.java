@@ -31,7 +31,7 @@ public interface IzlaznaFakturaService {
      */
     List<IzlaznaFaktura> findAll();
     
-
+    void prenos(IzlaznaFaktura izlaznaFaktura, StavkaIzvoda stavkaIzvoda, double iznos);
 
     /**
      * Get the "id" izlaznaFaktura.

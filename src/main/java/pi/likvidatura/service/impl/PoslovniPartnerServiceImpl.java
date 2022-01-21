@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import pi.likvidatura.domain.PoslovniPartner;
@@ -42,6 +44,12 @@ public class PoslovniPartnerServiceImpl implements PoslovniPartnerService {
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Page<PoslovniPartner> findAll(Pageable pageable) {
+		return poslovniPartnerRepository.findAll(pageable);
+
 	}
 
 }

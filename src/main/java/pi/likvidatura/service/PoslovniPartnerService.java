@@ -2,7 +2,11 @@ package pi.likvidatura.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import pi.likvidatura.domain.PoslovniPartner;
+import pi.likvidatura.domain.StavkaIzvoda;
 
 public interface PoslovniPartnerService {
 	
@@ -14,5 +18,6 @@ public interface PoslovniPartnerService {
 	
     void delete(Long id);
 
+    Page<PoslovniPartner> findAll(Pageable pageable);
 
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pi.likvidatura.domain.IzlaznaFaktura;
+import pi.likvidatura.domain.StavkaIzvoda;
 import pi.likvidatura.repository.IzlaznaFakturaRepository;
 import pi.likvidatura.service.IzlaznaFakturaService;
 import pi.likvidatura.service.dto.IzlaznaFakturaDTO;
@@ -80,6 +81,13 @@ public class IzlaznaFakturaServiceImpl implements IzlaznaFakturaService {
 	public Page<IzlaznaFaktura> findAll(Pageable pageable) {
 		return izlaznaFakturaRepository.findAll(pageable);
 
+	}
+
+	@Override
+	@Transactional
+	public void prenos(IzlaznaFaktura izlaznaFaktura, StavkaIzvoda stavkaIzvoda, double iznos) {
+		izlaznaFaktura.setPreostaliIznosZaPlacanje(izlaznaFaktura.getPreostaliIznosZaPlacanje()- iznos);
+		izlaznaFakturaRepository.save(izlaznaFaktura);
 	}
 
 

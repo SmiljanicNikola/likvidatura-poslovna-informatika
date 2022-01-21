@@ -57,6 +57,8 @@ public class FakturaPDFExporter {
 		cell.setPhrase(new Phrase("Poslovna godina ID", font));
 		table.addCell(cell);
 		
+		cell.setPhrase(new Phrase("Poslovni Partner ID", font));
+		table.addCell(cell);
 		
 	}
 	
@@ -69,6 +71,7 @@ public class FakturaPDFExporter {
 			table.addCell(String.valueOf(faktura.getPreostaliIznosZaPlacanje()));
 			table.addCell(faktura.getStatusFakture());
 			table.addCell(String.valueOf(faktura.getPoslovnaGodina()));
+			table.addCell(String.valueOf(faktura.getPoslovniPartner()));
 
 		}
 	}
@@ -89,10 +92,10 @@ public class FakturaPDFExporter {
 		title.setAlignment(Paragraph.ALIGN_CENTER);
 		document.add(title);
 		
-		PdfPTable table = new PdfPTable(7);
+		PdfPTable table = new PdfPTable(8);
 		table.setWidthPercentage(100);
 		table.setSpacingBefore(15);
-		table.setWidths(new float[] {2.7f, 3.0f, 3.0f, 3.0f, 3.0f,3.0f,3.0f});
+		table.setWidths(new float[] {2.7f, 3.0f, 3.0f, 3.0f, 3.0f,3.0f,3.0f,3.0f});
 		
 		
 		writeTableHeader(table);
